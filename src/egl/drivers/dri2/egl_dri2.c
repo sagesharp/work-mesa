@@ -1388,6 +1388,18 @@ dri2_create_image_wayland_wl_buffer(_EGLDisplay *disp, _EGLContext *ctx,
 }
 #endif
 
+#ifdef EGL_CHROMIUM_sync_control
+static EGLBoolean
+dri2_get_sync_values_chromium(_EGLDisplay *dpy, _EGLSurface *surf,
+                              EGLuint64KHR *ust, EGLuint64KHR *msc,
+                              EGLuint64KHR *sbc)
+{
+   struct dri2_egl_display *dri2_dpy = dri2_egl_display(dpy);
+   return dri2_dpy->vtbl->get_sync_values(dpy, surf, ust, msc, sbc);
+}
+#endif
+
+
 /**
  * Set the error code after a call to
  * dri2_egl_image::dri_image::createImageFromTexture.
@@ -2178,6 +2190,9 @@ _eglBuiltInDriverDRI2(const char *args)
    dri2_drv->base.API.BindWaylandDisplayWL = dri2_bind_wayland_display_wl;
    dri2_drv->base.API.UnbindWaylandDisplayWL = dri2_unbind_wayland_display_wl;
    dri2_drv->base.API.QueryWaylandBufferWL = dri2_query_wayland_buffer_wl;
+#endif
+#ifdef EGL_CHROMIUM_sync_control
+   dri2_drv->base.API.GetSyncValuesCHROMIUM = dri2_get_sync_values_chromium;
 #endif
 
    dri2_drv->base.Name = "DRI2";

@@ -139,6 +139,10 @@ typedef EGLint (*QueryBufferAge_t)(_EGLDriver *drv,
 typedef EGLBoolean (*SwapBuffersWithDamageEXT_t) (_EGLDriver *drv, _EGLDisplay *dpy, _EGLSurface *surface, const EGLint *rects, EGLint n_rects);
 #endif
 
+#ifdef EGL_CHROMIUM_sync_control
+typedef EGLBoolean (*GetSyncValuesCHROMIUM_t) (_EGLDisplay *dpy, _EGLSurface *surface, EGLuint64KHR *ust, EGLuint64KHR *msc, EGLuint64KHR *sbc);
+#endif
+
 /**
  * The API dispatcher jumps through these functions
  */
@@ -225,6 +229,9 @@ struct _egl_api
    PostSubBufferNV_t PostSubBufferNV;
 
    QueryBufferAge_t QueryBufferAge;
+#ifdef EGL_CHROMIUM_sync_control
+   GetSyncValuesCHROMIUM_t GetSyncValuesCHROMIUM;
+#endif
 };
 
 #endif /* EGLAPI_INCLUDED */

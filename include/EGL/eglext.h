@@ -588,6 +588,16 @@ EGLAPI EGLBoolean EGLAPIENTRY eglPostSubBufferNV (EGLDisplay dpy, EGLSurface sur
 #endif
 #endif /* EGL_NV_post_sub_buffer */
 
+#if KHRONOS_SUPPORT_INT64   /* EGLSyncControlCHROMIUM requires 64-bit uint support */
+#ifndef EGL_CHROMIUM_sync_control
+#define EGL_CHROMIUM_sync_control 1
+#ifdef EGL_EGLEXT_PROTOTYPES
+EGLAPI EGLBoolean EGLAPIENTRY eglGetSyncValuesCHROMIUM(EGLDisplay dpy, EGLSurface surface, EGLuint64KHR *ust, EGLuint64KHR *msc, EGLuint64KHR *sbc);
+#endif /* EGL_EGLEXT_PROTOTYPES */
+typedef EGLBoolean (EGLAPIENTRYP PFNEGLGETSYNCVALUESCHROMIUMPROC)(EGLDisplay dpy, EGLSurface surface, EGLuint64KHR *ust, EGLuint64KHR *msc, EGLuint64KHR *sbc);
+#endif
+#endif
+
 #ifndef EGL_NV_stream_sync
 #define EGL_NV_stream_sync 1
 #define EGL_SYNC_NEW_FRAME_NV             0x321F
