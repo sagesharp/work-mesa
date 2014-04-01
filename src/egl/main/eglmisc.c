@@ -123,6 +123,7 @@ _eglUpdateExtensionsString(_EGLDisplay *dpy)
    _EGL_CHECK_EXTENSION(EXT_image_dma_buf_import);
 
    _EGL_CHECK_EXTENSION(NV_post_sub_buffer);
+   _EGL_CHECK_EXTENSION(CHROMIUM_get_sync_values);
 #undef _EGL_CHECK_EXTENSION
 }
 
